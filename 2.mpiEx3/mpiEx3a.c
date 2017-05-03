@@ -23,7 +23,7 @@ int main(int argc,char *argv[]){
 	 }
 
 	MPI_Get_count(&Stat, MPI_INT, &count);
-	printf("Task %d: Received %d char(s) from task %d with tag %d \n",
+	printf("Task %d: Received %d int(s) from task %d with tag %d \n",
 		   rank, count, Stat.MPI_SOURCE, Stat.MPI_TAG);
 
 	MPI_Finalize();

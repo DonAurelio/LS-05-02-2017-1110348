@@ -6,3 +6,5 @@
 * 3.mpiEx4 Contains two examples about how processes can perfom a sum of the first 1000000 numbers together
 using divide and conquer approach with **MPI_Reduce**.
 
+# References 
+[MPI John Sanabria](https://github.com/josanabr/distributedsystems/tree/master/MPI)

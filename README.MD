@@ -8,4 +8,5 @@ using divide and conquer approach with **MPI_Reduce**.
 
 # References 
 [MPI Examples](https://github.com/josanabr/distributedsystems/tree/master/MPI)
+
 [MPI Tutorial](http://mpitutorial.com/)

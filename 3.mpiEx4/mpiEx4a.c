@@ -15,8 +15,8 @@ int main(int argc,char *argv[]){
 	// El inicio del segmento en la variable 'start', el fin del segmento
 	// la variable 'end'
 	int offset = upToVal / size;
-	start = rank * offset;
-	end = start + offset - 1;
+	start = rank * offset + 1;
+	end = offset * (rank + 1);
 
 	sum = 0;
 	for(i=start; i<= end; i++){

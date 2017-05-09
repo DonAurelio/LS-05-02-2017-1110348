@@ -7,4 +7,5 @@
 using divide and conquer approach with **MPI_Reduce**.
 
 # References 
-[MPI John Sanabria](https://github.com/josanabr/distributedsystems/tree/master/MPI)
+[MPI Examples](https://github.com/josanabr/distributedsystems/tree/master/MPI)
+[MPI Tutorial](http://mpitutorial.com/)

@@ -1,3 +1,20 @@
+/*
+	Description:
+		- Master process rank 0 sends a message (MPI_Send) to rank 1 process 
+		and wait for a incomming message (MPI_Recv).
+		- Rank 1 process receive the message (MPI_Recv) from rank 0 process 
+		and send another message to rank 0 process (MPI_Send)
+		- after that, each process (rank 0 and 1) prints the amount of data received.
+
+		MPI_Init: Starts an MPI Environment
+		MPI_finalize: End the MPI Environment
+		MPI_Comm_rank: Look for the process id on this case rank
+		MPI_Comm_size: Look for the number of running processes
+
+		MPI_Send: Sends a message to another process
+		MPI_Recv: Wait for a message froma given process
+		MPI_Get_count: Number of elements received
+*/
 #include <stdio.h>
 #include "mpi.h"
 

@@ -1,3 +1,14 @@
+/*
+	Description:
+		MPI_Init: Starts an MPI Environment
+		MPI_finalize: End the MPI Environment
+		MPI_Comm_rank: Look for the process id on this case rank
+		MPI_Comm_size: Look for the number of running processes
+
+		MPI_Send: Sends a message to another process
+		MPI_Recv: Wait for a message froma given process
+		MPI_Get_count: Number of elements received
+*/
 #include <stdio.h>
 #include "mpi.h"
 
@@ -25,11 +36,6 @@ int main(int argc,char *argv[]){
 	  outmsg = rank;
 	  MPI_Send(&outmsg, 1, MPI_INT, dest, tag, MPI_COMM_WORLD);
 	 }
-
-
-	//MPI_Get_count(&Stat, MPI_INT, &count);
-	//printf("Task %d: Received %d char(s) from task %d with tag %d \n",
-	//	   rank, count, Stat.MPI_SOURCE, Stat.MPI_TAG);
 
 	MPI_Finalize();
 }

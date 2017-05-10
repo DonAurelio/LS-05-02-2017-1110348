@@ -1,3 +1,13 @@
+/*
+	Description:
+		Process with rank 0 prints a message and the other processes 
+		print a different message.
+
+		MPI_Init: Starts an MPI Environment
+		MPI_finalize: End the MPI Environment
+		MPI_Comm_rank: Look for the process id on this case rank
+		MPI_Comm_size: Look for the number of running processes
+*/
 #include <stdio.h>
 #include "mpi.h"
 
@@ -5,7 +15,6 @@ int main(int argc, char* argv[]){
 	int  rank, size;
 	
 	/* start up MPI */
-	
 	MPI_Init(&argc, &argv);
 	
 	/* find out process rank */

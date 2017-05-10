@@ -9,7 +9,7 @@ run: compile
 compile:
 	@mpicc mpiEx4a.c -o ./mpiEx4a
 	@mpicc mpiEx4b.c -o ./mpiEx4b
-	@mpicc mpiEx4b.c -o ./mpiEx4c
+	@mpicc mpiEx4c.c -o ./mpiEx4c
 
 clean:
 	rm -rf ./mpiEx4a ./mpiEx4b ./mpiEx4c

@@ -24,10 +24,10 @@ int main(int argc, char* argv[]){
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	
 	if(rank == 0){
-		printf("\nYo soy el maestro y existen %d procesos corriendo !\n", size);
+		printf("\nI am the master of %d running processes !\n", size);
 
 	}else{
-		printf("\nYo soy un proceso con identificador %d de %d procesos en ejecucion !\n", rank, size);
+		printf("\nI am the %d process of %d running processes !\n", rank, size);
 	}    
 
 	/* shut down MPI */

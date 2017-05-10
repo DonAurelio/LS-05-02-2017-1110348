@@ -8,9 +8,9 @@ MPI is a parallel programming standard that specifies how parallel processes can
 * 2.mpiEx3 Contains two examples about how process can communicate by messages using **MPI_Send** and **MPI_Recv**.
 
 * 3.mpiEx4 Contains two examples about how processes can perfom a sum of the first 1000000 numbers together
-using divide and conquer approach with **MPI_Reduce**.
+using divide and conquer approach with **MPI_Reduce** and the PI calculation using monecarlo method and **MPI_Reduce**
 
 # References 
-[MPI Examples](https://github.com/josanabr/distributedsystems/tree/master/MPI)
+[MPI Examples Detail](https://github.com/josanabr/distributedsystems/blob/master/MPI/README.md)
 
 [MPI Tutorial](http://mpitutorial.com/)

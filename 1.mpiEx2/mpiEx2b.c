@@ -24,7 +24,7 @@ int main(int argc, char* argv[]){
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	
 	if(rank == 0){
-		printf("\nYo soy el maestro y existen %d procesos corriendo !\n", size);
+		printf("\nI am the master and there are %d running processes !\n", size);
 	}  
 
 	/* shut down MPI */

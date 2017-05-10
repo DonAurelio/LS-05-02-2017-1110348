@@ -1,5 +1,9 @@
 /*
 	Description:
+		Ring communication, suppose 6 processes, process 0 sends
+		its rank to process 1, process 1 send its rank to process 2
+		and so on. Finally process 5 sends its rank to process 0.
+
 		MPI_Init: Starts an MPI Environment
 		MPI_finalize: End the MPI Environment
 		MPI_Comm_rank: Look for the process id on this case rank
@@ -7,7 +11,6 @@
 
 		MPI_Send: Sends a message to another process
 		MPI_Recv: Wait for a message froma given process
-		MPI_Get_count: Number of elements received
 */
 #include <stdio.h>
 #include "mpi.h"
@@ -27,12 +30,12 @@ int main(int argc,char *argv[]){
 	  outmsg = rank;
 	  MPI_Send(&outmsg, 1, MPI_INT, dest, tag, MPI_COMM_WORLD);
 	  MPI_Recv(&inmsg, 1, MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
-      printf("Soy el proceso %d y recibo %d\n", rank, inmsg);
+      printf("I am %d and I have received %d\n", rank, inmsg);
 	}else{
 	  dest = (rank == size - 1) ? 0 : rank + 1;
 	  source = rank - 1;
 	  MPI_Recv(&inmsg, 1, MPI_INT, source, tag, MPI_COMM_WORLD, &Stat);
-	  printf("Soy el proceso %d y recibo %d\n", rank, inmsg);
+	  printf("I am %d and I have received %d\n", rank, inmsg);
 	  outmsg = rank;
 	  MPI_Send(&outmsg, 1, MPI_INT, dest, tag, MPI_COMM_WORLD);
 	 }

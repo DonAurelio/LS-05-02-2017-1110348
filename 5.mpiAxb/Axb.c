@@ -28,8 +28,8 @@ Algoritmo:
 
 #define MAXFILAS 23
 #define MAXCOL 5
-#define TAGTAREA -1 // marca que denota que el mensaje es una tarea
-#define TAGPARAR -2 // marca que denota que ya no hay mas mensajes por enviar
+#define TAGTAREA 99999 // marca que denota que el mensaje es una tarea
+#define TAGPARAR 99991 // marca que denota que ya no hay mas mensajes por enviar
 
 /**
 Funcion usada por el maestro para enviar a los trabajadores el 
@@ -104,7 +104,7 @@ int main(int argc, char **argv) {
 		printf("Vector resultado\n");
 		printvector(MAXFILAS, x);
 	} else { // el trabajador espera por filas que procesar
-		receive(m, b);
+		receive(rank, matrix, b);
 	}
 
 	MPI_Finalize();
@@ -144,18 +144,18 @@ int distributereceive(int f, int *x, int size) {
 				// Paso al siguiente trabajador disponible
 				++current_worker;
 			}else{
-				MPI_Send(&norow, 1, MPI_INT, worker_rank, TAGPARAR, MPI_COMM_WORLD);
+				MPI_Send(&norow, 1, MPI_INT, current_worker, TAGPARAR, MPI_COMM_WORLD);
 				++current_worker;
 			}
 		}
 
 		// Recibo los resultados en orden trabador 1,2,...,size.
 		for(i = 1; i <= workers_to_receive; ++i){
-			MPI_Recv(&partial_result, 1, MPI_INT, i, MPI_ANY_TAG, &stat);
+			MPI_Recv(&partial_result, 1, MPI_INT, i, MPI_ANY_TAG, MPI_COMM_WORLD, &stat);
 			// Recibo la suma parcial y el tag que envia el trabajador indicando
 			// el numero de la fila que proceso, para asi mismo colocar ese resultado
 			// en el vector resultado de forma correcta 
-			x[stat.MPI_TAG] = part_result;
+			x[stat.MPI_TAG] = partial_result;
 		}
 		// Vuelvo a colocar al trabajador 1 disponible, esto implicitamente indica
 		// que los trabajadores 1,2,....,size tambien estan disponibles ya que
@@ -197,16 +197,19 @@ int receive(int rank, int* m, int* b) {
 		// numero de fila para procesar
 		if(stat.MPI_TAG == TAGTAREA){
 			int row_to_process = data;
+			printf("Rank %d, recibio fila %d\n",rank, row_to_process);
 			int partial_result = 0;
-			int i;
+			int j;
 			for(j = 0; j < MAXCOL ; ++j){
 				partial_result += m[ row_to_process * MAXCOL + j ] * b[ j ];
 			}
-			MPI_Send(&partial_result, 1, MPI_INT, 0, row_to_process, MPI_COMM_WORLD)
+			MPI_Send(&partial_result, 1, MPI_INT, 0, row_to_process, MPI_COMM_WORLD);
+			printf("Rank %d, fila %d procesada\n",rank, row_to_process);
 		}else{ // En caso contrario entonces termino mi servicio
 			online = 0;
 		}
 	}
+	printf("Rank %d, FUERA DE SERVICIO\n",rank);
 	return 0;
 }
 

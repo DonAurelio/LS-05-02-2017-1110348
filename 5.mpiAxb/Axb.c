@@ -133,20 +133,15 @@ int distributereceive(int f, int *x, int size) {
 	// Muestras la fila actual es menor al numero de filas a procesar
 	while( current_row < f ){
 		// Miestras hayan trabajadores disponibles
-		while( current_worker < size ){
-			if( current_row < f ){
-				// Envio al numero de trajador actual el numero de fila actual a procesar
-				MPI_Send(&current_row, 1, MPI_INT, current_worker, TAGTAREA, MPI_COMM_WORLD);
-				// Paso a la siguiente fila
-				++current_row;
-				// Indico que voy a esperar respuesta de un trabajador 
-				++workers_to_receive;
-				// Paso al siguiente trabajador disponible
-				++current_worker;
-			}else{
-				MPI_Send(&norow, 1, MPI_INT, current_worker, TAGPARAR, MPI_COMM_WORLD);
-				++current_worker;
-			}
+		while( current_worker < size && current_row < f ){
+			// Envio al numero de trajador actual el numero de fila actual a procesar
+			MPI_Send(&current_row, 1, MPI_INT, current_worker, TAGTAREA, MPI_COMM_WORLD);
+			// Paso a la siguiente fila
+			++current_row;
+			// Indico que voy a esperar respuesta de un trabajador 
+			++workers_to_receive;
+			// Paso al siguiente trabajador disponible
+			++current_worker;
 		}
 
 		// Recibo los resultados en orden trabador 1,2,...,size.
@@ -165,6 +160,10 @@ int distributereceive(int f, int *x, int size) {
 		workers_to_receive = 0;
 	}
 
+	// Enviando tag de terminado a cada trabajador
+	for(i = 1; i < size; ++i)
+		MPI_Send(&norow, 1, MPI_INT, i, TAGPARAR, MPI_COMM_WORLD);
+	
 	return 0;
 }
 
